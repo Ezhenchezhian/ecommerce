@@ -9,6 +9,7 @@ class OrderDetailModelViewSet(ModelViewSet):
     queryset = OrderDetail.objects.all()
     serializer_class = OrderDetailSerializer
     lookup_field = 'entity_id'
+    filterset_fields = ['status']
 
 
 class OrderBillAddressModelViewSet(ModelViewSet):

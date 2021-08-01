@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'aggregator.apps.AggregatorConfig',
 ]
 
@@ -127,5 +128,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Celery RabbitMQ Broker
 CELERY_BROKER_URL = 'amqp://localhost'
 
-
+# Celery Timezone
 CELERY_TIMEZONE = "Asia/Kolkata"
+
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
