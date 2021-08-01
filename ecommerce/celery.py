@@ -3,5 +3,6 @@ from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce.settings')
 app = Celery('ecommerce')
-app.config_from_object('django.config:settings', namespace='CELERY')
+app.config_from_object('ecommerce.settings', namespace='CELERY')
 app.autodiscover_tasks()
+

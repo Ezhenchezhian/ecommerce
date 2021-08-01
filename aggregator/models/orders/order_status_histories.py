@@ -5,13 +5,13 @@ from aggregator.models.orders.order_details import OrderDetail
 
 class OrderStatusHistory(models.Model):
     entity_id = models.BigIntegerField()
-    comment = models.TextField()
-    entity_name = models.TextField()
-    created_at = models.DateTimeField()
-    is_customer_notified = models.IntegerField()
-    is_visible_on_front = models.IntegerField()
-    status = models.TextField()
-    parent_id = models.ForeignKey(OrderDetail, on_delete=models.PROTECT, related_name='status_histories')
+    comment = models.TextField(null=True)
+    entity_name = models.TextField(null=True)
+    created_at = models.DateTimeField(null=True)
+    is_customer_notified = models.IntegerField(null=True)
+    is_visible_on_front = models.IntegerField(null=True)
+    status = models.TextField(null=True)
+    parent_id = models.IntegerField(null=True)
 
     class Meta:
         db_table = 'order_status_histories'

@@ -4,7 +4,7 @@ from celery.contrib import rdb
 import requests
 from celery import shared_task
 
-from aggregator.models import OrderDetail
+from aggregator.models import OrderDetail, OrderBillingAddress, OrderPayment, OrderItem, OrderStatusHistory
 
 url = "http://ec2-18-217-116-137.us-east-2.compute.amazonaws.com/rest/default/V1/orders?searchCriteria=[" \
       "currentPage]=1&searchCriteria=[pageSize]=25"
@@ -29,16 +29,14 @@ def create_order_list():
         payment = item.pop('payment')
         status_histories = item.pop('status_histories')
         extension_attributes = item.pop('extension_attributes')
-        OrderDetail.objects.create(**item)
+        order_detail = OrderDetail.objects.create(**item)
+        for it in items:
+            order_items = OrderItem.objects.create(**it)
+        order_bill_address = OrderBillingAddress.objects.create(**billing_address)
+        order_payment = OrderPayment.objects.create(**payment)
+        for st in status_histories:
+            order_status_histories = OrderStatusHistory.objects.create(**st)
     sleep(5)
 
 
-@shared_task
-def update_order_list():
-    pass
-
-
 create_order_list()
-while True:
-    sleep(15)
-    update_order_list()
