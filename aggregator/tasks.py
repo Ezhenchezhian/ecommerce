@@ -29,7 +29,10 @@ def create_order_list():
         status_histories = item.pop('status_histories')
         extension_attributes = item.pop('extension_attributes')
         order_detail = OrderDetail.objects.create(**item)
+        for it in items:
+            order_items = OrderItem.objects.create(**it)
         order_bill_address = OrderBillingAddress.objects.create(**billing_address)
+        order_payment = OrderPayment.objects.create(**payment)
         for st in status_histories:
             order_status_histories = OrderStatusHistory.objects.create(**st)
     sleep(5)
